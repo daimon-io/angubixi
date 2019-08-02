@@ -1,3 +1,32 @@
-<section class="container">
-  <h1 class="headline text-center">AnguBixi</h1>
+<section class="container main-container">
+  <h1 tabindex="0" class="headline text-center">AnguBixi</h1>
+
+	<div tabindex="0" class="filter-stations">
+		<label>Filter by maximum distance (in meters):</label>
+		<select ng-model="maxDistance" 
+			ng-options="distance for distance in filterDistanceChoices">
+		</select>
+	</div>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th tabindex="0" class="station-name col">Station Name</th>
+				<th tabindex="0" class="station-available col text-center">Number of Bikes Available</th>
+				<th tabindex="0" class="station-distance col text-center">Distance</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr tabindex="0" 
+				ng-if="station.num_bikes_available" 
+				ng-repeat="station in stations | orderBy:'distanceFrom' | filter: filterDistance(maxDistance)"
+				aria-label="{{station.name}}, 
+				{{station.num_bikes_available}} bike{{station.num_bikes_available > 1 ? 's' : 0}} available.
+				You are at {{station.distanceFrom | distance}} from that station.">
+				<td>{{station.name}}</td>
+				<td class="text-center">{{station.num_bikes_available}}</td>
+				<td class="text-center">{{station.distanceFrom | distance}}</td>
+			</tr>
+		</tbody>
+	</table>
 </section>

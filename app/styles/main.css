@@ -1,0 +1,31 @@
+.headline {
+	margin-bottom: 3em;
+}
+
+.main-container .filter-stations {
+	float: right;
+	margin-bottom: 20px;
+}
+
+.main-container .filter-stations label {
+	margin-right: 8px;
+}
+
+.main-container table th {
+	text-align: center;
+}
+
+.main-container table .station-name {
+	width: 50%;
+	max-width: 50%;
+}
+
+.main-container table .station-available {
+	width: 25%;
+	max-width: 25%;
+}
+
+.main-container table .station-distance {
+	width: 25%;
+	max-width: 25%;
+}
