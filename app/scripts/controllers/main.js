@@ -7,7 +7,11 @@
  * # MainCtrl
  * Controller of the AnguBixi
  */
-angular.module('AnguBixi')
-  .controller('MainCtrl', function () {
+(function() {
+	angular.module('AnguBixi')
+		.controller('MainCtrl', MainCtrl);
 
-  });
+		function MainCtrl($scope) {
+			
+		}
+})();
