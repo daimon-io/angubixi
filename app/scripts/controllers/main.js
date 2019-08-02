@@ -23,7 +23,18 @@
 			function getLocalData() {
 				return JSON.parse(localStorage.getItem('angubixi_data'));
 			}
-			
+
+			/**
+			 * @ngdoc function
+			 * @name AnguBixi.controller:MainCtrl.setLocalData
+			 * @description
+			 * Set the data stored in local storage.
+			 */
+			function setLocalData(obj) {
+				localStorage.setItem('angubixi_data', JSON.stringify(obj));
+			}
+
 			this.getLocalData = getLocalData;
+			this.setLocalData = setLocalData;
 		}
 })();
