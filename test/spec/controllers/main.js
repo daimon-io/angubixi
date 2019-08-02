@@ -4,10 +4,13 @@ describe('Controller: MainCtrl', function() {
   beforeEach(module('AnguBixi'));
 
   var MainCtrl,
-    scope;
+    scope,
+		$httpBackend;
 
-	beforeEach(inject(function($controller, $rootScope) {
+	beforeEach(inject(function($controller, $rootScope, _$httpBackend_) {
 		scope = $rootScope.$new();
+		$httpBackend = _$httpBackend_;
+
 		MainCtrl = $controller('MainCtrl', {
 			$scope: scope
 		});
@@ -43,6 +46,27 @@ describe('Controller: MainCtrl', function() {
 
 				expect(setItemSpyer)
 					.toHaveBeenCalledWith('angubixi_stations_data', mockedStoredDataStringified);
+			});
+		});
+
+		describe('getRemoteData()', function() {
+			it('to retrieve the proper data from BIXI API', function() {
+				var stationsList = [
+					{ name: 'station 1' },
+					{ name: 'station 2' },
+					{ name: 'station 3' },
+					{ name: 'station 4' },
+					{ name: 'station 5' }
+				];
+
+				$httpBackend.expect('GET', 'https://api-core.bixi.com/gbfs/fr/station_information.json')
+					.respond(200, { data: { stations: stationsList } });
+				
+				MainCtrl.getRemoteData();
+				$httpBackend.flush();
+
+				expect(scope.stations)
+					.toEqual(stationsList);
 			});
 		});
 	});

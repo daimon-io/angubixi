@@ -11,10 +11,14 @@
 		 * # MainCtrl
 		 * Controller of the AnguBixi
 		 * @requires $scope
+		 * @requires $resource
 		 */
-		function MainCtrl($scope) {
+		function MainCtrl($scope, $resource) {
 
-			var LOCAL_STORAGE_STATIONS_ID = 'angubixi_stations_data';
+			var LOCAL_STORAGE_STATIONS_ID = 'angubixi_stations_data',
+				BIXI_API_URL = 'https://api-core.bixi.com/gbfs/fr/';
+
+			$scope.stations = [];
 
 			/**
 			 * @ngdoc function
@@ -36,7 +40,32 @@
 				localStorage.setItem(LOCAL_STORAGE_STATIONS_ID, JSON.stringify(obj));
 			}
 
+			/**
+			 * @ngdoc function
+			 * @name AnguBixi.controller:MainCtrl.getRemoteData
+			 * @description
+			 * Fetching the remote data from Bixi API (stations list).
+			 */
+			function getRemoteData() {
+				var Stations = $resource(BIXI_API_URL + 'station_information.json');
+
+				return Stations.get().$promise
+					.then(getRemoteDataSuccessHandler, getRemoteDataErrorHandler);
+			}
+
+			function getRemoteDataSuccessHandler(response) {
+				var stations = response.data.stations;
+
+				$scope.stations = stations;
+				setLocalData(stations);
+			}
+
+			function getRemoteDataErrorHandler(error) {
+				// Error Handler
+			}
+
 			this.getLocalData = getLocalData;
 			this.setLocalData = setLocalData;
+			this.getRemoteData = getRemoteData;
 		}
 })();
