@@ -6,14 +6,28 @@ describe('Controller: MainCtrl', function () {
   var MainCtrl,
     scope;
 
-  beforeEach(inject(function ($controller, $rootScope) {
-    scope = $rootScope.$new();
-    MainCtrl = $controller('MainCtrl', {
-      $scope: scope
-    });
-  }));
+	beforeEach(inject(function ($controller, $rootScope) {
+		scope = $rootScope.$new();
+		MainCtrl = $controller('MainCtrl', {
+			$scope: scope
+		});
+	}));
 
-  it('to return true', function () {
-    expect(true).toBe(true);
-  });
+	describe('Methods', function () {
+		describe('getLocalData()', function () {
+			it('to return the proper stored object', function() {
+				var mockedLocalStorageStringified = '[{"some":"testItem"}]',
+					mockedLocalStorageParsed = [ { some: 'testItem' } ],
+					localData;
+				
+				spyOn(localStorage, 'getItem')
+					.and.returnValue(mockedLocalStorageStringified);
+				
+				localData = MainCtrl.getLocalData();
+				
+				expect(localData)
+					.toEqual(mockedLocalStorageParsed);
+			});
+		});
+	});
 });
