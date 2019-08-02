@@ -42,7 +42,7 @@ describe('Controller: MainCtrl', function() {
 				MainCtrl.setLocalData(mockedStoredDataParsed);
 
 				expect(setItemSpyer)
-					.toHaveBeenCalledWith('angubixi_data', mockedStoredDataStringified);
+					.toHaveBeenCalledWith('angubixi_stations_data', mockedStoredDataStringified);
 			});
 		});
 	});

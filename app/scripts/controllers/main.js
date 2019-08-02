@@ -14,6 +14,8 @@
 		 */
 		function MainCtrl($scope) {
 
+			var LOCAL_STORAGE_STATIONS_ID = 'angubixi_stations_data';
+
 			/**
 			 * @ngdoc function
 			 * @name AnguBixi.controller:MainCtrl.getLocalData
@@ -21,7 +23,7 @@
 			 * Get the data stored from local storage for more data persistence.
 			 */
 			function getLocalData() {
-				return JSON.parse(localStorage.getItem('angubixi_data'));
+				return JSON.parse(localStorage.getItem(LOCAL_STORAGE_STATIONS_ID));
 			}
 
 			/**
@@ -31,7 +33,7 @@
 			 * Set the data stored in local storage.
 			 */
 			function setLocalData(obj) {
-				localStorage.setItem('angubixi_data', JSON.stringify(obj));
+				localStorage.setItem(LOCAL_STORAGE_STATIONS_ID, JSON.stringify(obj));
 			}
 
 			this.getLocalData = getLocalData;
